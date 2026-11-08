@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html id="html-root" lang="ar" dir="ltr">
+<html id="html-root" lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>ذكرى اعترافي لشهد</title>
-    <meta name="description" content="A special journey is being counted, day by day... Click to see how far we’ve come together!">
+    <meta name="description" content="عداد رومانسي أنيق لأيام الحب والمناسبات الخاصة مع مهند وشهد">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="ذكرى اعترافي لشهد">
-    <meta property="og:description" content="A special journey is being counted, day by day... Click to see how far we’ve come together!">
+    <meta property="og:description" content="عداد رومانسي أنيق لأيام الحب والمناسبات الخاصة مع مهند وشهد">
     <meta property="og:image" content="assets/images/og-image.webp">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ذكرى اعترافي لشهد">
-    <meta name="twitter:description" content="A special journey is being counted, day by day... Click to see how far we’ve come together!">
+    <meta name="twitter:description" content="عداد رومانسي أنيق لأيام الحب والمناسبات الخاصة مع مهند وشهد">
     <meta name="twitter:image" content="assets/images/og-image.webp">
     
     <!-- Favicon -->
@@ -34,10 +34,18 @@
     <div id="particle-container"></div>
     <div id="ripple-container"></div>
 
+    <!-- Desktop Navigation Arrows -->
+    <button id="prev-event" class="nav-arrow nav-prev hidden" aria-label="الحدث السابق" title="السابق">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button id="next-event" class="nav-arrow nav-next hidden" aria-label="الحدث التالي" title="التالي">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
     <div class="love-container">
-        <h1 class="title">ذكرى اعترافي لشهد</h1>
+        <h1 class="title" id="event-title">ذكرى اعترافي لشهد</h1>
         
-        <div class="heart-container" title="Click me!">
+        <div class="heart-container" title="اضغط هنا!">
             <svg class="heart-svg" viewBox="0 0 512 512">
                 <defs>
                     <path id="heart-path"
@@ -66,9 +74,9 @@
                     </g>
                 </g>
                 <use href="#heart-path" class="heart-outline" />
-                <text x="256" y="150" class="text-top">Love</text>
+                <text x="256" y="150" class="text-top">حب</text>
                 <text x="256" y="300" class="text-days" id="day-count-in-heart">...</text>
-                <text x="256" y="425" class="text-bottom">days</text>
+                <text x="256" y="425" class="text-bottom">يوم</text>
             </svg>
         </div>
 
@@ -84,8 +92,8 @@
                 <path d="M 40,40 Q 150,70 260,40" class="love-thread-path" />
             </svg>
             <div class="profile">
-                <img src="assets/images/mohand.jpg" alt="Mohand">
-                <span class="profile-name">Mohand</span>
+                <img id="partner1-img" src="assets/images/mohand.jpg" alt="مهند">
+                <span class="profile-name" id="partner1-name">مهند</span>
             </div>
             <div class="love-date">
                 <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -93,26 +101,30 @@
                 </svg>
             </div>
             <div class="profile">
-                <img src="assets/images/shahed.jpg" alt="Shahed">
-                <span class="profile-name">Shahed</span>
+                <img id="partner2-img" src="assets/images/shahed.jpg" alt="شهد">
+                <span class="profile-name" id="partner2-name">شهد</span>
             </div>
         </div>
 
-        <div class="milestones" id="milestones-text">Calculating milestones...</div>
+        <div class="milestones" id="milestones-text">جاري الحساب...</div>
+
+        <!-- Pagination dots for multiple events -->
+        <div id="event-dots" class="event-dots"></div>
     </div>
 
     <!-- Audio toggle button (top right) -->
-    <button id="toggle-audio" class="btn-audio-toggle" style="position: absolute; top: 15px; right: 15px; z-index: 999;" aria-label="Toggle Music" title="Toggle Music">
+    <button id="toggle-audio" class="btn-audio-toggle" style="position: absolute; top: 15px; right: 15px; z-index: 999;" aria-label="تشغيل / إيقاف الموسيقى" title="تشغيل / إيقاف الموسيقى">
         <i id="audio-icon" class="fa-solid fa-volume-xmark"></i>
     </button>
 
     <!-- Fullscreen toggle button (top left) -->
-    <button id="toggle-fullscreen" class="btn-fullscreen-toggle" style="position: absolute; top: 15px; left: 15px; z-index: 999;" aria-label="Toggle Fullscreen" title="Toggle Fullscreen">
+    <button id="toggle-fullscreen" class="btn-fullscreen-toggle" style="position: absolute; top: 15px; left: 15px; z-index: 999;" aria-label="ملء الشاشة" title="ملء الشاشة">
         <i id="fullscreen-icon" class="fa-solid fa-expand"></i>
     </button>
 
-    <!-- Libraries & Scripts -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="assets/js/events.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>

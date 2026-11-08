@@ -17,7 +17,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Quicksand', var(--main-font);
+    font-family: var(--main-font);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,6 +29,9 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    direction: rtl;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 @keyframes animated-gradient {
@@ -72,14 +75,14 @@ body {
 }
 
 .title {
-    font-family: 'Patrick Hand', 'Noto Sans', cursive, sans-serif;
+    font-family: 'Noto Sans', 'Patrick Hand', sans-serif;
     font-size: clamp(1.6rem, 5vw, 2.2rem);
-    letter-spacing: 2px;
+    font-weight: 700;
     color: var(--primary-color);
     margin: 0;
-    direction: rtl;
     line-height: 1.4;
-    text-shadow: 0 2px 10px rgba(229, 115, 115, 0.2);
+    text-shadow: 0 2px 10px rgba(229, 115, 115, 0.25);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .heart-container {
@@ -88,6 +91,7 @@ body {
     -webkit-tap-highlight-color: transparent;
     margin: 0;
     position: relative;
+    touch-action: pan-y;
 }
 
 .heart-svg {
@@ -108,12 +112,13 @@ body {
 
 .heart-svg .text-top,
 .heart-svg .text-bottom {
-    font-family: 'Patrick Hand', cursive;
-    font-size: 45px;
+    font-family: 'Noto Sans', 'Patrick Hand', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
 }
 
 .heart-svg .text-days {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Noto Sans', sans-serif;
     font-size: 90px;
     font-weight: 700;
 }
@@ -158,12 +163,14 @@ body {
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     margin: 0;
+    transition: transform 0.3s ease;
 }
 
 .days-display {
     font-size: clamp(1rem, 4vw, 1.4rem);
     font-weight: 700;
     color: var(--text-dark);
+    direction: ltr;
 }
 
 .time-display {
@@ -172,6 +179,7 @@ body {
     letter-spacing: 1.5px;
     margin-top: 5px;
     font-family: 'Quicksand', monospace;
+    direction: ltr;
 }
 
 .profiles {
@@ -181,6 +189,7 @@ body {
     align-items: center;
     width: 100%;
     max-width: 380px;
+    direction: ltr;
 }
 
 .love-thread-svg {
@@ -291,50 +300,143 @@ body {
 
 .profile-name {
     margin-top: 10px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-dark);
-    font-size: clamp(0.9rem, 4vw, 1rem);
+    font-size: clamp(0.95rem, 4vw, 1.1rem);
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .milestones {
     background-color: var(--container-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 0.7rem 1.2rem;
+    padding: 0.7rem 1.4rem;
     border-radius: 20px;
-    font-size: clamp(0.7rem, 3.5vw, 0.9rem);
+    font-size: clamp(0.75rem, 3.5vw, 0.95rem);
     color: var(--text-dark);
-    font-weight: 500;
+    font-weight: 600;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     margin: 0;
+    line-height: 1.5;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 /* Control buttons: Audio and Fullscreen */
 .btn-audio-toggle,
 .btn-fullscreen-toggle {
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.5);
     border: none;
     cursor: pointer;
-    padding: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     outline: none;
-    transition: transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .btn-audio-toggle i,
 .btn-fullscreen-toggle i {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #E57373 !important;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
 }
 
 .btn-audio-toggle:hover,
 .btn-fullscreen-toggle:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .btn-audio-toggle:active,
 .btn-fullscreen-toggle:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
+}
+
+/* Multi-Event Carousel Controls */
+.nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    z-index: 90;
+    transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.3s ease;
+    outline: none;
+}
+
+.nav-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-50%) scale(1.12);
+}
+
+.nav-arrow:active {
+    transform: translateY(-50%) scale(0.92);
+}
+
+.nav-prev {
+    right: 20px; /* in RTL, previous is on the right */
+}
+
+.nav-next {
+    left: 20px; /* in RTL, next is on the left */
+}
+
+.nav-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Event Pagination Dots */
+.event-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    z-index: 10;
+}
+
+.event-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(229, 115, 115, 0.3);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.event-dot:hover {
+    transform: scale(1.2);
+}
+
+.event-dot.active {
+    background-color: var(--primary-color);
+    width: 24px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px var(--aura-color);
+}
+
+@media (max-width: 600px) {
+    .nav-arrow {
+        display: none; /* Mobile relies on direct touch swipe */
+    }
 }
 
 @media (max-height: 600px) {
@@ -349,10 +451,10 @@ body {
         justify-content: space-around;
     }
     .title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
     .counter-box {
-        padding: 0.6rem 1.5rem;
+        padding: 0.5rem 1.4rem;
     }
     .milestones {
         padding: 0.5rem 1rem;
