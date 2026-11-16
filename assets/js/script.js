@@ -6,6 +6,7 @@
 // Music Manager
 const musicManager = {
     audio: null,
+    currentSource: null,
     isUnlocked: false,
     isAttemptingPlay: false,
     state: 'idle',
@@ -37,7 +38,8 @@ const musicManager = {
         });
     },
 
-    _setupAudio(sourceUrl = 'assets/audio/background-music.mp3') {
+    _setupAudio(sourceUrl = 'assets/audio/background-music.mp3?v=2') {
+        this.currentSource = sourceUrl;
         this.audio = new Audio(sourceUrl);
         this.audio.loop = true;
         this.audio.volume = 0.7;
@@ -45,9 +47,23 @@ const musicManager = {
         this.updateState('ready');
     },
 
-    init() {
+    setSource(sourceUrl) {
+        if (!sourceUrl || sourceUrl === this.currentSource) return;
+        const wasPlaying = this.audio && !this.audio.paused;
+        if (this.audio) {
+            this.audio.pause();
+            this.audio.removeAttribute('src');
+            this.audio.load();
+        }
+        this._setupAudio(sourceUrl);
+        if (wasPlaying && this.isUnlocked) {
+            this.play();
+        }
+    },
+
+    init(initialSource = 'assets/audio/background-music.mp3?v=2') {
         this.updateState('loading');
-        this._setupAudio();
+        this._setupAudio(initialSource);
         this._startAutoplayBypass();
 
         const toggleBtn = document.getElementById('toggle-audio');
@@ -304,6 +320,10 @@ const eventManager = {
             this.updateWaterLevel(totalDays);
             this.updateDots();
             this.updateNavButtons();
+
+            if (ev.music && typeof musicManager !== 'undefined') {
+                musicManager.setSource(ev.music);
+            }
         };
 
         if (animate && window.gsap) {

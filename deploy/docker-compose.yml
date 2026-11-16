@@ -1,0 +1,39 @@
+name: for-my-love
+
+services:
+  angie:
+    image: docker.angie.software/angie:1.12.3-minimal
+    container_name: for-my-love
+    restart: unless-stopped
+
+    ports:
+      - "8091:8080"
+
+    volumes:
+      - /root/appdata/for-my-love:/usr/share/angie/html:ro
+      - /root/compose/for-my-love/angie.conf:/etc/angie/angie.conf:ro
+
+    user: "100:101"
+    read_only: true
+    tmpfs:
+      - /tmp:size=8m,uid=100,gid=101,mode=750,noexec,nosuid,nodev
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 64m
+    cpus: 0.25
+    pids_limit: 64
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "2"
+
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 5s
+      retries: 3

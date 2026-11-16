@@ -45,6 +45,7 @@ To add or modify events, simply edit `events.json` in the root directory. Any ch
     "id": "confession",
     "title": "ذكرى اعترافي لشهد",
     "startDate": "2025-07-14",
+    "music": "assets/audio/background-music.mp3?v=2",
     "partner1": {
       "name": "مهند",
       "avatar": "assets/images/mohand.jpg"
@@ -58,6 +59,7 @@ To add or modify events, simply edit `events.json` in the root directory. Any ch
     "id": "first-date",
     "title": "أول لقاء بيننا",
     "startDate": "2025-05-20",
+    "music": "assets/audio/background-music.mp3?v=2",
     "partner1": {
       "name": "مهند",
       "avatar": "assets/images/mohand.jpg"
@@ -69,6 +71,10 @@ To add or modify events, simply edit `events.json` in the root directory. Any ch
   }
 ]
 ```
+
+### Music & Cache Busting
+- **Per-event or Global audio**: Each event can define a custom `music` track path. If omitted, it falls back to the default background track.
+- **Instant updates on mobile/desktop without hard reset**: Whenever replacing an audio file, update the query parameter version (e.g. `?v=2`, `?v=3`) or filename in `events.json`. Because `events.json` has `no-cache, no-store`, clients always fetch it fresh, forcing iOS Safari and mobile browsers to download the new audio stream immediately instead of playing stale cached audio.
 
 ### Swiping & Controls
 - **Mobile**: Swipe left or right with your finger across the screen.
